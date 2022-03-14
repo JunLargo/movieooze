@@ -12,7 +12,13 @@ const Home = () => {
   }, []);
 
   const searchMovies = async (title) => {
-    const response = await fetch(`http://www.omdbapi.com?apikey=${process.env.omdbkey}&s=${title}`);
+    const response = await fetch(`http://www.omdbapi.com?apikey=${process.env.omdbkey}&s=${title}`, {
+      method: "POST",
+        headers: {
+            "Content-Type": "text/plain"
+            },
+        body: JSON.stringify()
+    });
     const data = await response.json();
 
     setMovies(data.Search);
