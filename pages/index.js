@@ -1,69 +1,58 @@
-import {useState, useEffect} from 'react';
-import Link from 'next/link'
+import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 
-const Home = () => {
+import MovieCard from "./MovieCard";
+import SearchIcon from "../public/search.svg";
 
+const API_URL = "http://www.omdbapi.com?apikey=b6003d8a";
+
+const Home = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
 
-  const searchMovies = async (title) => {
-    const response = await fetch(`http://www.omdbapi.com?apikey=${process.env.omdbkey}&s=${title}`);
-    const data = await response.json();
-
-    console.log(data.Search);
-    setMovies(data.Search)
-  }
-
   useEffect(() => {
-    searchMovies('movie')
+    searchMovies("movie");
   }, []);
 
+  const searchMovies = async (title) => {
+    const response = await fetch(`${API_URL}&s=${title}`);
+    const data = await response.json();
+
+    setMovies(data.Search);
+  };
+
   return (
-    
     <div className="app">
-      <Link href='/'>
-        <h1><a>Movieooze</a></h1>
-      </Link>
+      <h1>MovieLand</h1>
+
       <div className="search">
-        <input 
-          //value= ""
-          placeholder="Search movie title ..."
-          //onChange={(e) => setSearchTerm(e.target.value)}
-          onChange={(e) => searchMovies(e.target.value)}
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search for movies"
         />
-        {/* <img 
-          src={SearchIcon} 
+        <Image
+          src={SearchIcon}
           alt="search"
-          onClick={() => searchMovies(searchTerm)} 
-        /> */}
+          onClick={() => searchMovies(searchTerm)}
+          height={30}
+          width={30}
+        />
       </div>
 
-      
-      {movies?.length > 0
-          ? (
-            <div className="container">
-              {movies.map((movie) => (
-                  <div className="movie" key={movie.imdbID}>
-                    <div>
-                      <p>{movie.Year}</p>  
-                    </div>
-                    <div>
-                      <Image src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400'} height={400} width={400} alt={movie.Title}/>
-                    </div>
-                    <div>
-                      <span>{movie.Type}</span>
-                      <h3>{movie.Title}</h3>  
-                    </div>  
-                  </div>
-              ))}
-            </div>
-          ) : (
-            <div className="empty">
-              <h2>No movies found. Please try to search again.</h2>
-            </div>
-          )}
+      {movies?.length > 0 ? (
+        <div className="container">
+          {movies.map((movie) => (
+            <MovieCard movie={movie} />
+          ))}
+        </div>
+      ) : (
+        <div className="empty">
+          <h2>No movies found</h2>
+        </div>
+      )}
     </div>
   );
-}
- 
+};
+
 export default Home;
