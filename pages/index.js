@@ -4,8 +4,6 @@ import Image from 'next/image'
 import MovieCard from "./MovieCard";
 import SearchIcon from "../public/search.svg";
 
-const API_URL = "http://www.omdbapi.com?apikey=b6003d8a";
-
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
@@ -15,7 +13,7 @@ const Home = () => {
   }, []);
 
   const searchMovies = async (title) => {
-    const response = await fetch(`${API_URL}&s=${title}`);
+    const response = await fetch(`http://www.omdbapi.com?apikey=${process.env.omdbkey}&s=${title}`);
     const data = await response.json();
 
     setMovies(data.Search);
