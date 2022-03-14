@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 // import SearchIcon from './search.svg'
 import MovieCard from './MovieCard'
+import Link from 'next/link'
 
 //const API_URL = 'http://www.omdbapi.com?apikey=3baa3878';
 
@@ -25,7 +26,9 @@ const Home = () => {
   return (
     
     <div className="app">
-      <h1><a href="/">Movieooze</a></h1>
+      <Link href='/'>
+        <h1><a>Movieooze</a></h1>
+      </Link>
       <div className="search">
         <input 
           //value= ""

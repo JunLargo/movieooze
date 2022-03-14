@@ -5,7 +5,7 @@ module.exports = {
     omdbkey: process.env.OMDB_API_KEY,
   },
   images: {
-    domains: ['omdbapi.com']
+    domains: ['omdbapi.com', 'm.media-amazon.com']
   }
 }
 

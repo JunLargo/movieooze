@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const MovieCard = ({movie}) => {
   return (
@@ -7,7 +8,7 @@ const MovieCard = ({movie}) => {
         <p>{movie.Year}</p>  
       </div>
       <div>
-        <img src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400'} alt={movie.Title} />  
+        <Image src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400'} height={400} width={400} alt={movie.Title}/>
       </div>
       <div>
         <span>{movie.Type}</span>
