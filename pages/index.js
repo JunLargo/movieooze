@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 
-import MovieCard from "./MovieCard";
-import SearchIcon from "../public/search.svg";
+import SearchIcon from "./search.svg";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,9 +40,20 @@ const Home = () => {
       {movies?.length > 0 ? (
         <div className="container">
           {movies.map((movie) => (
-            <div  key={movie.imdbID}>
-              <MovieCard movie={movie} />
+            <div className="movie" key={movie.imdbID}>
+            <div>
+              <p>{movie.Year}</p>
             </div>
+      
+            <div>
+              <Image src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/400"} alt={movie.Title} height={400} width={400} />
+            </div>
+      
+            <div>
+              <span>{movie.Type}</span>
+              <h3>{movie.Title}</h3>
+            </div>
+          </div>
           ))}
         </div>
       ) : (
