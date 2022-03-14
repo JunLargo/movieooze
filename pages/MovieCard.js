@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const MovieCard = ({ movie: { imdbID, Year, Poster, Title, Type } }) => {
   return (
-    <div className="movie" key={imdbID}>
+    <div className="movie">
       <div>
         <p>{Year}</p>
       </div>
